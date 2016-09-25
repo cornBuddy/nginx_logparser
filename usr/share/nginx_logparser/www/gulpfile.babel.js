@@ -3,6 +3,7 @@ import eslint from 'gulp-eslint';
 import mocha from 'gulp-spawn-mocha';
 import clear from 'clear';
 import del from 'del';
+import named from 'vinyl-named';
 import webpackStream from 'webpack-stream';
 import webpackConfig from './webpack.config';
 import { join } from 'path';
@@ -11,16 +12,16 @@ const isDevelopment = !process.env.ENV
     || process.env.ENV === 'development';
 
 const pathTo = {
-  src: __dirname + '/src/**/*.js',
+  src: __dirname + '/src/*.js',
   index: __dirname + '/src/index.js',
   tests: __dirname + '/test/**/*.js',
-  bundle: join(__dirname, 'bundle'),
+  bundle: join(__dirname, 'bundle', 'js'),
 };
 
 const doNothing = () => null;
 
 export function clean() {
-  return del(pathTo.bundle);
+  return del(join(__dirname, 'bundle'));
 }
 
 export function clearConsole(cb) {
@@ -45,8 +46,9 @@ export function test() {
 }
 
 export function webpack() {
-  del()
-  return gulp.src(pathTo.index)
+  clean();
+  return gulp.src(pathTo.src)
+    .pipe(named())
     .pipe(webpackStream(webpackConfig))
     .pipe(gulp.dest(pathTo.bundle));
 }
