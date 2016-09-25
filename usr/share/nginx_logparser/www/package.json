@@ -22,8 +22,6 @@
   },
   "homepage": "https://github.com/Nikki460/nginx_logparser#readme",
   "devDependencies": {
-    "aurelia-testing": "^1.0.0-beta.2.0.0",
-    "aurelia-webpack-plugin": "^1.1.0",
     "babel": "^6.5.2",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
@@ -42,11 +40,8 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "aurelia-bootstrapper": "^1.0.0",
-    "aurelia-framework": "^1.0.1",
     "bootstrap": "^3.3.7",
     "chart.js": "^2.2.1",
-    "core-js": "^2.4.1",
     "font-awesome": "^4.6.3",
     "isomorphic-fetch": "^2.2.1"
   }
