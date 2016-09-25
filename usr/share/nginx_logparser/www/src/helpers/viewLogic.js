@@ -1,4 +1,4 @@
-import Chart from 'src/chart.js';
+import Chart from 'chart.js/src/chart';
 
 // this rembers chart for cleaning
 let chart = null;

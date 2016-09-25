@@ -1,22 +1,21 @@
 const resolve = require('path').resolve;
-
-const pathTo = {
-  entry: resolve(__dirname, 'src/entry.js'),
-  bundleDir: resolve(__dirname, 'bundle/js/'),
-};
+const join = require('path').join;
+const NoErrorsPlugin = require('webpack').NoErrorsPlugin;
 
 module.exports = {
-  entry: pathTo.entry,
-  output: {
-    path: pathTo.bundleDir,
-    filename: 'index.bundle.js',
-  },
   module: {
     loaders: [
       {
         test: /\.js$/,
+        include: join(__dirname, 'src'),
         loader: 'babel',
+        query: {
+          presets: ['es2015'],
+        },
       },
     ],
   },
+  plugins: [
+    new NoErrorsPlugin(),
+  ],
 };

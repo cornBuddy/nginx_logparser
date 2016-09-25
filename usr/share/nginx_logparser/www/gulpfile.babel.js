@@ -3,15 +3,18 @@ import eslint from 'gulp-eslint';
 import mocha from 'gulp-spawn-mocha';
 import clear from 'clear';
 import del from 'del';
-import { resolve } from 'path';
+import webpackStream from 'webpack-stream';
+import webpackConfig from './webpack.config';
+import { join } from 'path';
 
 const isDevelopment = !process.env.ENV
     || process.env.ENV === 'development';
 
 const pathTo = {
   src: __dirname + '/src/**/*.js',
+  index: __dirname + '/src/index.js',
   tests: __dirname + '/test/**/*.js',
-  bundle: resolve(__dirname, 'bundle/'),
+  bundle: join(__dirname, 'bundle'),
 };
 
 const doNothing = () => null;
@@ -39,6 +42,13 @@ export function test() {
     })
     .pipe(mocha())
     .on('error', doNothing);
+}
+
+export function webpack() {
+  del()
+  return gulp.src(pathTo.index)
+    .pipe(webpackStream(webpackConfig))
+    .pipe(gulp.dest(pathTo.bundle));
 }
 
 export default function dev() {
