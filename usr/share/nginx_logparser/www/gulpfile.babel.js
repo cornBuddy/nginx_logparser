@@ -15,7 +15,7 @@ const pathTo = {
   src: __dirname + '/src/*.js',
   index: __dirname + '/src/index.js',
   tests: __dirname + '/test/**/*.js',
-  bundle: join(__dirname, 'bundle', 'js'),
+  bundle: join(__dirname, 'bundle'),
 };
 
 const doNothing = () => null;
