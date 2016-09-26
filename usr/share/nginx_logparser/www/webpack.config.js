@@ -3,6 +3,11 @@ const join = require('path').join;
 const NoErrorsPlugin = require('webpack').NoErrorsPlugin;
 
 module.exports = {
+  entry: join(__dirname, 'src', 'index.js'),
+  output: {
+    path: join(__dirname, 'bundle', 'js'),
+    filename: 'index.bundle.js',
+  },
   module: {
     loaders: [
       {
@@ -13,6 +18,14 @@ module.exports = {
           presets: ['es2015'],
         },
       },
+      {
+        test: /\.css$/,
+        loader: 'style!css',
+      },
+      {
+        test: /\.(png|jgp|svg|ttf|eot|woff|woff2)$/,
+        loader: 'file?name=[path][name].[ext]',
+      }
     ],
   },
   plugins: [
