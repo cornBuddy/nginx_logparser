@@ -56,6 +56,8 @@ export function webpack(cb) {
 }
 
 export default function dev() {
+  // TODO: create developer's echo server and run here
+  // TODO: add browser-sync or something similar
   clean();
   gulp.watch([pathTo.src, pathTo.tests],
     gulp.series('clearConsole', 'lint', 'test'));
