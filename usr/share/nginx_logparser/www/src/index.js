@@ -4,7 +4,7 @@ import '../static/css/index.css'
 
 import Model from './helpers/model';
 import { initContext, drawDiagram, showError } from './helpers/viewLogic';
-const API = '';
+const API = 'http://139.59.137.236/api/statistic?timestamp=1469900000';
 
 
 const canvas = initContext();
