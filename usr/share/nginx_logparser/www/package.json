@@ -41,8 +41,7 @@
     "mocha": "^2.5.3",
     "style-loader": "^0.13.1",
     "vinyl-named": "^1.1.0",
-    "webpack": "^1.13.1",
-    "webpack-stream": "^3.2.0"
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
