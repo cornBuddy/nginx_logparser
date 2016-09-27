@@ -4,6 +4,7 @@ const NoErrorsPlugin = require('webpack').NoErrorsPlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  devtool: 'cheap-inline-source-map',
   entry: {
     index: join(__dirname, 'src', 'index.js'),
   },
