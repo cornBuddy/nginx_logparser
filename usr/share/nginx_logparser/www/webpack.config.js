@@ -1,14 +1,15 @@
 const resolve = require('path').resolve;
 const join = require('path').join;
 const NoErrorsPlugin = require('webpack').NoErrorsPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
     index: join(__dirname, 'src', 'index.js'),
   },
   output: {
-    path: join(__dirname, 'bundle', 'js'),
-    filename: '[name].js',
+    path: join(__dirname, 'bundle'),
+    filename: 'js/[name].js',
   },
   module: {
     loaders: [
@@ -22,7 +23,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css',
+        loader: ExtractTextPlugin
+          .extract("style-loader", "css-loader"),
       },
       {
         test: /\.(png|jgp|svg|ttf|eot|woff|woff2)$/,
@@ -32,5 +34,6 @@ module.exports = {
   },
   plugins: [
     new NoErrorsPlugin(),
+    new ExtractTextPlugin("css/[name].css")
   ],
 };
