@@ -30,6 +30,7 @@ export function drawDiagram(context) {
       },
     };
     chart = new Chart(context, diagram);
+    return Promise.resolve();
   };
 }
 
