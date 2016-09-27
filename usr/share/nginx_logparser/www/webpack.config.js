@@ -3,10 +3,12 @@ const join = require('path').join;
 const NoErrorsPlugin = require('webpack').NoErrorsPlugin;
 
 module.exports = {
-  entry: join(__dirname, 'src', 'index.js'),
+  entry: {
+    index: join(__dirname, 'src', 'index.js'),
+  },
   output: {
     path: join(__dirname, 'bundle', 'js'),
-    filename: 'index.bundle.js',
+    filename: '[name].js',
   },
   module: {
     loaders: [
