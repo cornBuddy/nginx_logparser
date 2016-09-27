@@ -1,10 +1,11 @@
 import gulp from 'gulp';
+import { PluginError, log } from 'gulp-util';
 import eslint from 'gulp-eslint';
 import mocha from 'gulp-spawn-mocha';
 import clear from 'clear';
 import del from 'del';
 import named from 'vinyl-named';
-import webpackStream from 'webpack-stream';
+import webpackTask from 'webpack';
 import webpackConfig from './webpack.config';
 import { join } from 'path';
 
@@ -13,7 +14,6 @@ const isDevelopment = !process.env.ENV
 
 const pathTo = {
   src: __dirname + '/src/*.js',
-  index: __dirname + '/src/index.js',
   tests: __dirname + '/test/**/*.js',
   bundle: join(__dirname, 'bundle'),
 };
@@ -45,12 +45,14 @@ export function test() {
     .on('error', doNothing);
 }
 
-export function webpack() {
+export function webpack(cb) {
   clean();
-  return gulp.src(pathTo.src)
-    .pipe(named())
-    .pipe(webpackStream(webpackConfig))
-    .pipe(gulp.dest(pathTo.bundle));
+  webpackTask(webpackConfig, function(err, stats) {
+    if (err)
+      throw new PluginError('webpack', err);
+    log('[webpack]', stats.toString());
+    cb();
+  });
 }
 
 export default function dev() {
