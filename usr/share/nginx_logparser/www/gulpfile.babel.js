@@ -6,7 +6,9 @@ import clear from 'clear';
 import del from 'del';
 import named from 'vinyl-named';
 import webpackTask from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config';
+import runDevServer from './devServer';
 import { join } from 'path';
 
 const isDevelopment = !process.env.ENV
@@ -55,10 +57,13 @@ export function webpack(cb) {
   });
 }
 
-export default function dev() {
-  // TODO: create developer's echo server and run here
-  // TODO: add browser-sync or something similar
+export default function dev(cb) {
   clean();
-  gulp.watch([pathTo.src, pathTo.tests],
-    gulp.series('clearConsole', 'lint', 'test'));
+  runDevServer();
+  devServer = new WebpackDevServer(webpackConfig)
+    .listen(8000, 'localhost', (err) => {
+      if (err)
+        throw new PluginError('webpack-dev-server', err);
+    });
+  cb();
 }
