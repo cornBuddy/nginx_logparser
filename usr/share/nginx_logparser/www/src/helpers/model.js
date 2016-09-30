@@ -1,17 +1,26 @@
 import Http from './http';
 
+const encodeQuery = function(data) {
+  let ret = [];
+  for (let d in data)
+    ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+  return ret.join('&');
+}
+
 /**
  * Class represents data access layer to server
  */
 export default class Model {
   /**
    * Returns JSON object from model's url
+   * @param {Object} configuration - Request object
    * @returns {Object} JSON if url was given else null
    */
-  data() {
+  data(configuration) {
     if (!this.url)
       return null;
-    return this.constructor._parse(this.url);
+    const queryString = encodeQuery(configuration);
+    return this.constructor._parse(`${this.url}?${queryString}`);
   }
   /**
    * Returns model url
