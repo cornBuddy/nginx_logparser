@@ -18,6 +18,7 @@ export function initContext() {
  */
 export function drawDiagram(context) {
   return function(data) {
+    // TODO: how to aggregate data?
     chart && chart.destroy();
     const diagram = {
       type: 'line',
