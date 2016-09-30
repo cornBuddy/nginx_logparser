@@ -70,6 +70,7 @@ export default function dev(cb) {
   };
   new WebpackDevServer(webpackTask(myConfig), devServerConfig)
     .listen(3000, 'localhost', function(err) {
-      if(err) throw new PluginError('webpack-dev-server', err);
+      if(err)
+        throw new PluginError('webpack-dev-server', err);
     });
 }
