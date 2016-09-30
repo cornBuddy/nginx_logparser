@@ -11,9 +11,13 @@ export default function runServer() {
       .on('error', throwError)
       .on('data', doNothing)
       .on('end', () => {
+        const headers = {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': 'http://localhost:3000',
+        }
         response.on('error', throwError);
-        response.writeHead(status, {'Content-Type': 'application/json'});
-        response.end(fixture);
+        response.writeHead(200, headers);
+        response.end(JSON.stringify(fixture));
       });
-  }).listen(8080);
+  }).listen(3333);
 }
