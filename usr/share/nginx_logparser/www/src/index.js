@@ -7,11 +7,11 @@ import { initContext, drawDiagram, showError } from './helpers/viewLogic';
 const NODE_ENV = process.env.NODE_ENV || 'dev';
 const API = NODE_ENV === 'dev'
   ? 'http://localhost:3333'
-  : 'http://139.59.137.236/api/statistic?timestamp=1469900000';
+  : 'http://139.59.137.236/api/statistic';
 
 
 const canvas = initContext();
 const mainLogModel = new Model(API);
-mainLogModel.data()
+mainLogModel.data({ timestamp: 1475019000 })
   .then(drawDiagram(canvas))
   .catch(showError);
