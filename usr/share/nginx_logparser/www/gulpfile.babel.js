@@ -60,7 +60,7 @@ export function webpack(cb) {
 export default function dev(cb) {
   clean();
   runDevServer();
-  devServer = new WebpackDevServer(webpackConfig)
+  (new WebpackDevServer(webpackConfig, devServerOptions))
     .listen(8000, 'localhost', (err) => {
       if (err)
         throw new PluginError('webpack-dev-server', err);
