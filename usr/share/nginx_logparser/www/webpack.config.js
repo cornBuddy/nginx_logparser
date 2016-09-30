@@ -5,19 +5,15 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-inline-source-map',
-  cache: true,
-  debug: true,
   devServer: {
     inline: true,
-    port: 3333,
   },
   entry: {
     index: join(__dirname, 'src', 'index.js'),
   },
   output: {
-    path: join(__dirname, 'bundle'),
-    publicPath: 'bundle/js',
-    filename: 'js/[name].js',
+    path: join(__dirname),
+    filename: 'bundle/js/[name].js',
   },
   module: {
     loaders: [
@@ -32,7 +28,7 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin
-          .extract("style-loader", "css-loader"),
+          .extract('style-loader', 'css-loader'),
       },
       {
         test: /\.(png|jgp|svg|ttf|eot|woff|woff2)$/,
@@ -42,6 +38,6 @@ module.exports = {
   },
   plugins: [
     new NoErrorsPlugin(),
-    new ExtractTextPlugin("css/[name].css")
+    new ExtractTextPlugin('bundle/css/[name].css')
   ],
 };

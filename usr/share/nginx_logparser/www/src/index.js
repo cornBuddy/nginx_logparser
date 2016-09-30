@@ -4,7 +4,10 @@ import '../static/css/index.css'
 
 import Model from './helpers/model';
 import { initContext, drawDiagram, showError } from './helpers/viewLogic';
-const API = 'http://139.59.137.236/api/statistic?timestamp=1469900000';
+const NODE_ENV = process.env.NODE_ENV || 'dev';
+const API = NODE_ENV === 'dev'
+  ? 'http://localhost:3333'
+  : 'http://139.59.137.236/api/statistic?timestamp=1469900000';
 
 
 const canvas = initContext();

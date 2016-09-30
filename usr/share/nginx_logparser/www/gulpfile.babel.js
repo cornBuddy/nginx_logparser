@@ -8,7 +8,7 @@ import named from 'vinyl-named';
 import webpackTask from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config';
-import runDevServer from './devServer';
+import devServer from './devServer';
 import { join } from 'path';
 
 const isDevelopment = !process.env.ENV
@@ -59,11 +59,17 @@ export function webpack(cb) {
 
 export default function dev(cb) {
   clean();
-  runDevServer();
-  (new WebpackDevServer(webpackConfig, devServerOptions))
-    .listen(8000, 'localhost', (err) => {
-      if (err)
-        throw new PluginError('webpack-dev-server', err);
+  devServer();
+  const myConfig = Object.create(webpackConfig);
+  myConfig.devtool = 'eval';
+  myConfig.debug = true;
+  const devServerConfig  = {
+    stats: {
+      colors: true,
+    },
+  };
+  new WebpackDevServer(webpackTask(myConfig), devServerConfig)
+    .listen(3000, 'localhost', function(err) {
+      if(err) throw new PluginError('webpack-dev-server', err);
     });
-  cb();
 }
