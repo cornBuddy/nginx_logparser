@@ -45,6 +45,7 @@ export default class Model {
   static _parse(url) {
     // TODO: on server, when there is bad url, return 400
     return Http.get(url)
-      .then((body) => body);
+      .then((body) => body.json())
+      .then((json) => json['_data']);
   }
 }
