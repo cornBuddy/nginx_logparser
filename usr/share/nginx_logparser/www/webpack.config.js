@@ -5,11 +5,18 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-inline-source-map',
+  cache: true,
+  debug: true,
+  devServer: {
+    inline: true,
+    port: 3333,
+  },
   entry: {
     index: join(__dirname, 'src', 'index.js'),
   },
   output: {
     path: join(__dirname, 'bundle'),
+    publicPath: 'bundle/js',
     filename: 'js/[name].js',
   },
   module: {
