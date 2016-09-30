@@ -12,6 +12,6 @@ const API = NODE_ENV === 'dev'
 
 const canvas = initContext();
 const mainLogModel = new Model(API);
-mainLogModel.data({ timestamp: 1475019000 })
+mainLogModel.data({ timestamp: 1474019000 })
   .then(drawDiagram(canvas))
   .catch(showError);
