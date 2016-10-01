@@ -12,21 +12,60 @@ export function initContext() {
 }
 
 /**
+ * Aggregating data by key
+ * @param {String} key - aggregator
+ * @returns {function} closure for promise
+ */
+export function aggregateBy(key, config) {
+  const ascending = (l, r) => l[key] - r[key];
+  const ascendingBy = k => { (l, r) => l[k] - r[k] };
+  const normalizeDate = function(obj, config) {
+    const date = new Date(obj.date * 1000);
+    switch (config.period) {
+      case 'month':
+        date.setMonth(date.getMonth(), 1);
+      case 'day':
+        date.setHours(0, 0, 0, 0);
+        break;
+      default:
+        throw new Error(`wrong period value: "${config.period}"`);
+    }
+    return date.getTime();
+  };
+
+  return function(rawData) {
+    const noMeta = rawData
+      .sort(ascending);
+    let aggregatedData = new Map();
+    for (const curr of noMeta) {
+      const normalizedDate = normalizeDate(curr, config);
+      const count = aggregatedData.get(normalizedDate) || 0;
+      aggregatedData.set(normalizedDate, count + 1);
+    }
+    const sorted = [];
+    for (const cur of aggregatedData.entries())
+      sorted.push(cur);
+    return Promise.resolve(sorted);
+  };
+
+}
+
+/**
  * Drawing diagram on selected context
  * @param {NodeElement} context - Diagram context (canvas)
  * @returns {function} closure for promise
  */
 export function drawDiagram(context) {
-  return function(data) {
-    // TODO: how to aggregate data?
+  return function(aggregatedData) {
     chart && chart.destroy();
+    const parseDate = c => new Date(c[0]);
     const diagram = {
       type: 'line',
       data: {
-        labels: ['some', 'labels', 'here'],
+        labels: aggregatedData.map(parseDate),
         datasets: [{
           label: 'dataset label',
-          data: [1, 2, 3],
+          data: aggregatedData.map(c => c[1]),
         }],
       },
     };
