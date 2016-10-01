@@ -36,7 +36,7 @@ export function aggregateBy(key, config) {
   return function(rawData) {
     const noMeta = rawData
       .sort(ascending);
-    let aggregatedData = new Map();
+    const aggregatedData = new Map();
     for (const curr of noMeta) {
       const normalizedDate = normalizeDate(curr, config);
       const count = aggregatedData.get(normalizedDate) || 0;
@@ -58,7 +58,10 @@ export function aggregateBy(key, config) {
 export function drawDiagram(context) {
   return function(aggregatedData) {
     chart && chart.destroy();
-    const parseDate = c => new Date(c[0]);
+    const parseDate = c => {
+      const d = new Date(c[0]);
+      return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
+    };
     const diagram = {
       type: 'line',
       data: {
