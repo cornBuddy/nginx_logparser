@@ -57,6 +57,7 @@ export function aggregateBy(key, config) {
  */
 export function drawDiagram(context) {
   return function(aggregatedData) {
+    // TODO: remove hardcode
     chart && chart.destroy();
     const parseDate = c => {
       const d = new Date(c[0]);
@@ -67,7 +68,7 @@ export function drawDiagram(context) {
       data: {
         labels: aggregatedData.map(parseDate),
         datasets: [{
-          label: 'dataset label',
+          label: 'responses count since 16.9.2016 aggregated by day',
           data: aggregatedData.map(c => c[1]),
         }],
       },
