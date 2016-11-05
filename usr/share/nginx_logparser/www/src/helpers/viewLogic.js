@@ -34,8 +34,7 @@ export function aggregateBy(key, config) {
   };
 
   return function(rawData) {
-    const noMeta = rawData
-      .sort(ascending);
+    const noMeta = rawData.sort(ascending);
     const aggregatedData = new Map();
     for (const curr of noMeta) {
       const normalizedDate = normalizeDate(curr, config);
