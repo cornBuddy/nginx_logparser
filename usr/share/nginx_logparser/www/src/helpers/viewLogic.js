@@ -36,6 +36,7 @@ export function aggregateBy(key, config) {
   };
 
   return function(rawData) {
+    console.log(rawData);
     const noMeta = rawData.sort(ascending);
     const aggregatedData = new Map();
     for (const curr of noMeta) {
@@ -69,7 +70,7 @@ export function drawDiagram(context) {
       data: {
         labels: aggregatedData.map(parseDate),
         datasets: [{
-          label: 'responses count since 16.9.2016 aggregated by day',
+          label: 'responses count',
           data: aggregatedData.map((c) => c[1]),
         }],
       },
