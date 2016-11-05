@@ -11,22 +11,27 @@ const API = NODE_ENV === 'dev'
 const timestampWidget = document.querySelector('input[name="timestamp"]');
 const periodWidget = document.querySelector('select[name="period"]');
 const aggregateByWidget
-    = document.querySelector('select[name="aggregate-by"]')
+    = document.querySelector('select[name="aggregate-by"]');
 
 function updateData() {
-  // TODO: this returns string representation of date, get timestamp
-  const date = timestampWidget.value;
-  const timestamp = null;
+  const timestamp = Date.parse(timestampWidget.value);
+  console.log(timestamp);
   const period = periodWidget.value;
-  const aggregateBy = aggregateByWidget.value;
+  const aggregator = aggregateByWidget.value;
   const canvas = initContext();
   const mainLogModel = new Model(API);
   mainLogModel.data({ timestamp: timestamp })
-    .then(aggregateBy(aggregateBy, { period: period }))
+    .then(aggregateBy(aggregator, { period: period }))
     .then(drawDiagram(canvas))
     .catch(showError);
 }
 
-aggregateBy.onchage = periodWidget.onchange = timestampWidget.onchange
-    = updateData;
-// TODO: set default date here, month ago or something
+function initializeWidgets() {
+  aggregateBy.onchage = periodWidget.onchange = timestampWidget.onchange
+      = updateData;
+  const monthAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
+  timestampWidget.value = monthAgo.toISOString().slice(0,10);
+  updateData();
+}
+
+initializeWidgets();
