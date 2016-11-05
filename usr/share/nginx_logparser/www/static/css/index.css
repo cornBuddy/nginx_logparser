@@ -1,1 +1,12 @@
+section#widgets > * {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+}
 
+canvas {
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
