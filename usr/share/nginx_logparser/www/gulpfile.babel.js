@@ -15,7 +15,7 @@ const isDevelopment = !process.env.ENV
     || process.env.ENV === 'development';
 
 const pathTo = {
-  src: __dirname + '/src/*.js',
+  src: __dirname + '/src/**/*.js',
   tests: __dirname + '/test/**/*.js',
   bundle: join(__dirname, 'bundle'),
 };
