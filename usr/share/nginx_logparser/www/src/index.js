@@ -12,6 +12,7 @@ const API = NODE_ENV === 'dev'
 
 
 // TODO: move #aggregateBy and Model#data parameters to widgets
+// TODO: add listeners to widgets on index page and update data on change
 const canvas = initContext();
 const mainLogModel = new Model(API);
 mainLogModel.data({ timestamp: 1474019000 })
