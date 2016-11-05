@@ -1,11 +1,11 @@
 import Http from './http';
 
 const encodeQuery = function(data) {
-  let ret = [];
-  for (let d in data)
-    ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+  const ret = [];
+  for (const d in data)
+    ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`);
   return ret.join('&');
-}
+};
 
 /**
  * Class represents data access layer to server
@@ -55,6 +55,6 @@ export default class Model {
     // TODO: on server, when there is bad url, return 400
     return Http.get(url)
       .then((body) => body.json())
-      .then((json) => json['_data']);
+      .then((json) => json._data);
   }
 }

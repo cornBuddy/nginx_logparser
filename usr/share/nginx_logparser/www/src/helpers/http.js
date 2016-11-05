@@ -23,9 +23,9 @@ export default class Http {
    */
   static _checkStatus(response) {
     // TODO: what should we do on redirections?
-    if (this._isSuccessCode(response.status)) {
+    if (this._isSuccessCode(response.status))
       return response;
-    } else {
+    else {
       const error = new Error(response.statusText);
       error.response = response;
       throw error;

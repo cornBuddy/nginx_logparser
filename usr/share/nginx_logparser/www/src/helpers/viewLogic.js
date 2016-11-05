@@ -14,21 +14,23 @@ export function initContext() {
 /**
  * Aggregating data by key
  * @param {String} key - aggregator
+ * @param {Object} config - configuration object
  * @returns {function} closure for promise
  */
 export function aggregateBy(key, config) {
   const ascending = (l, r) => l[key] - r[key];
-  const ascendingBy = k => { (l, r) => l[k] - r[k] };
   const normalizeDate = function(obj, config) {
-    const date = new Date(obj.date * 1000);
+    const MS_IN_SEC = 1000;
+    const date = new Date(obj.date * MS_IN_SEC);
     switch (config.period) {
-      case 'month':
-        date.setMonth(date.getMonth(), 1);
-      case 'day':
-        date.setHours(0, 0, 0, 0);
-        break;
-      default:
-        throw new Error(`wrong period value: "${config.period}"`);
+    case 'month':
+      date.setMonth(date.getMonth(), 1);
+      // have to fall through because expected start of a day anyway
+    case 'day':
+      date.setHours(0, 0, 0, 0);
+      break;
+    default:
+      throw new Error(`wrong period value: "${config.period}"`);
     }
     return date.getTime();
   };
@@ -58,7 +60,7 @@ export function drawDiagram(context) {
   return function(aggregatedData) {
     // TODO: remove hardcode
     chart && chart.destroy();
-    const parseDate = c => {
+    const parseDate = (c) => {
       const d = new Date(c[0]);
       return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
     };
@@ -68,7 +70,7 @@ export function drawDiagram(context) {
         labels: aggregatedData.map(parseDate),
         datasets: [{
           label: 'responses count since 16.9.2016 aggregated by day',
-          data: aggregatedData.map(c => c[1]),
+          data: aggregatedData.map((c) => c[1]),
         }],
       },
     };
@@ -83,6 +85,7 @@ export function drawDiagram(context) {
  * @return {undefined}
  */
 export function showError(response) {
+  // TODO: add something more production
   console.log(response);
   alert('something went wrong');
 }
