@@ -8,12 +8,25 @@ const API = NODE_ENV === 'dev'
   ? 'http://localhost:3333'
   : 'http://139.59.137.236/api/statistic';
 
+const timestampWidget = document.querySelector('input[name="timestamp"]');
+const periodWidget = document.querySelector('select[name="period"]');
+const aggregateByWidget
+    = document.querySelector('select[name="aggregate-by"]')
 
-// TODO: move #aggregateBy and Model#data parameters to widgets
-// TODO: add listeners to widgets on index page and update data on change
-const canvas = initContext();
-const mainLogModel = new Model(API);
-mainLogModel.data({ timestamp: 1474019000 })
-  .then(aggregateBy('date', { period: 'day' }))
-  .then(drawDiagram(canvas))
-  .catch(showError);
+function updateData() {
+  // TODO: this returns string representation of date, get timestamp
+  const date = timestampWidget.value;
+  const timestamp = null;
+  const period = periodWidget.value;
+  const aggregateBy = aggregateByWidget.value;
+  const canvas = initContext();
+  const mainLogModel = new Model(API);
+  mainLogModel.data({ timestamp: timestamp })
+    .then(aggregateBy(aggregateBy, { period: period }))
+    .then(drawDiagram(canvas))
+    .catch(showError);
+}
+
+aggregateBy.onchage = periodWidget.onchange = timestampWidget.onchange
+    = updateData;
+// TODO: set default date here, month ago or something
