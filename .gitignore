@@ -3,7 +3,4 @@ jspm_packages/
 coverage/
 bundle/
 
-mocha.opts
-.babelrc
-.eslintrc.json
 *.log
