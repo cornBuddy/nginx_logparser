@@ -14,8 +14,7 @@ const aggregateByWidget
     = document.querySelector('select[name="aggregate-by"]');
 
 function updateData() {
-  const timestamp = Date.parse(timestampWidget.value);
-  console.log(timestamp);
+  const timestamp = Date.parse(timestampWidget.value) / 1000;
   const period = periodWidget.value;
   const aggregator = aggregateByWidget.value;
   const canvas = initContext();
@@ -30,7 +29,7 @@ function initializeWidgets() {
   aggregateBy.onchage = periodWidget.onchange = timestampWidget.onchange
       = updateData;
   const monthAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 30);
-  timestampWidget.value = monthAgo.toISOString().slice(0,10);
+  timestampWidget.value = monthAgo.toISOString().slice(0, 10);
   updateData();
 }
 
