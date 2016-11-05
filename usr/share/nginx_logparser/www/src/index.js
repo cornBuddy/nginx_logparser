@@ -11,6 +11,7 @@ const API = NODE_ENV === 'dev'
   : 'http://139.59.137.236/api/statistic';
 
 
+// TODO: move #aggregateBy and Model#data parameters to widgets
 const canvas = initContext();
 const mainLogModel = new Model(API);
 mainLogModel.data({ timestamp: 1474019000 })

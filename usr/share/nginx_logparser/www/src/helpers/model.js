@@ -44,6 +44,7 @@ export default class Model {
    * @constructor
    */
   constructor(url) {
+    // TODO: add caching
     this.url = url;
   }
   /**
