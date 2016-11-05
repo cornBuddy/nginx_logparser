@@ -4,8 +4,20 @@
     <title>Nginx log parser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <canvas></canvas>
+  <body class="container">
+
+    <section id="widgets" class="row">
+      <input type="date" name="timestamp">
+      <select name="period">
+        <option value="day">By day</option>
+        <option value="month">By month</option>
+      </select>
+    </section>
+
+    <main class="row">
+      <canvas></canvas>
+    </main>
+
   </body>
   <script src="../../bundle/js/index.js"></script>
 </html>
